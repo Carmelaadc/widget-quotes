@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Citation du jour – Discipline & Productivité</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
+      background-color: #ffffff;
+      color: #333;
+      margin: 0;
+      padding: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+
+    .callout {
+      background-color: #f6f6f6;
+      border-left: 4px solid #999;
+      padding: 1.5em;
+      border-radius: 8px;
+      max-width: 600px;
+      font-size: 1.2em;
+      line-height: 1.6;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+  </style>
+</head>
+<body>
+  <div class="callout" id="citation">
+    Chargement de la citation...
+  </div>
+
+  <script>
+    const citations = [
+      "La discipline est le pont entre les objectifs et leur réalisation. – Jim Rohn",
+      "Tu n’as pas besoin de motivation, tu as besoin d’habitude.",
+      "La productivité, c’est faire les bonnes choses, pas seulement les faire rapidement.",
+      "Commence avant d’être prête.",
+      "Chaque jour compte. Fais-en quelque chose.",
+      "C’est dans la répétition que naît la maîtrise.",
+      "Fais ce que tu as dit que tu ferais, même quand tu n’as plus envie de le faire.",
+      "Le succès appartient à celles qui persévèrent quand personne ne regarde.",
+      "Moins de distractions. Plus d’action.",
+      "Construis la version de toi que tu admires, une action à la fois."
+    ];
+
+    const today = new Date();
+    const index = today.getDate() % citations.length;
+    document.getElementById("citation").innerText = citations[index];
+  </script>
+</body>
+</html>
