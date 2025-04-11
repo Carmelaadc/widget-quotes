@@ -7,26 +7,100 @@
   <style>
     body {
       margin: 0;
-      padding: 0.5em 1em;
+      padding: 1em;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", sans-serif;
       background-color: transparent;
       color: #2e2e2e;
     }
 
+    h2 {
+      margin-top: 0;
+      font-size: 1.2em;
+      font-weight: 600;
+    }
+
     .callout {
       background-color: #f4f4f4;
       border-left: 3px solid #d0d0d0;
-      padding: 0.8em 1em;
+      padding: 1em;
       border-radius: 4px;
       font-size: 1rem;
       line-height: 1.5;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
+
+    .citation-text {
+      flex: 1;
+      text-align: left;
+    }
+
+    .save-btn {
+      position: absolute;
+      top: 0.5em;
+      right: 0.8em;
+      background-color: transparent;
+      border: none;
+      font-size: 1.1em;
+      cursor: pointer;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 0.5em;
+      margin-top: 0.75em;
+      justify-content: center;
+    }
+
+    .nav-buttons button {
+      background-color: #e0e0e0;
+      border: none;
+      border-radius: 4px;
+      padding: 0.4em 0.6em;
+      cursor: pointer;
+      font-size: 1em;
+    }
+
+    .nav-buttons button:hover {
+      background-color: #d0d0d0;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 1em;
+      left: 50%;
+      transform: translateX(-50%);
+      background-color: #444;
+      color: #fff;
+      padding: 0.6em 1em;
+      border-radius: 4px;
+      font-size: 0.9em;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .toast.show {
+      opacity: 1;
     }
   </style>
 </head>
 <body>
-  <div class="callout" id="citation">
-    Chargement...
+  <h2>Citation du jour</h2>
+
+  <div class="callout">
+    <div class="citation-text" id="citation">Chargement...</div>
+    <button class="save-btn" onclick="saveCitation()" title="Enregistrer la citation">💾</button>
   </div>
+
+  <div class="nav-buttons">
+    <button onclick="changeDay(-1)">⏪</button>
+    <button onclick="resetToday()">📅</button>
+    <button onclick="changeDay(1)">⏩</button>
+  </div>
+
+  <div id="toast" class="toast">Citation copiée !</div>
 
   <script>
     const citations = [
@@ -42,9 +116,33 @@
       "Construis la version de toi que tu admires, une action à la fois."
     ];
 
-    const today = new Date();
-    const index = today.getDate() % citations.length;
-    document.getElementById("citation").innerText = citations[index];
+    let baseDate = new Date();
+
+    function updateCitation(date) {
+      const index = date.getDate() % citations.length;
+      document.getElementById("citation").innerText = citations[index];
+    }
+
+    function changeDay(offset) {
+      baseDate.setDate(baseDate.getDate() + offset);
+      updateCitation(baseDate);
+    }
+
+    function resetToday() {
+      baseDate = new Date();
+      updateCitation(baseDate);
+    }
+
+    function saveCitation() {
+      const text = document.getElementById("citation").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const toast = document.getElementById("toast");
+        toast.classList.add("show");
+        setTimeout(() => toast.classList.remove("show"), 2000);
+      });
+    }
+
+    updateCitation(baseDate);
   </script>
 </body>
 </html>
