@@ -12,13 +12,11 @@
       background-color: transparent;
       color: #2e2e2e;
     }
-
     h2 {
       margin-top: 0;
       font-size: 1.2em;
       font-weight: 600;
     }
-
     .callout {
       background-color: #f4f4f4;
       border-left: 3px solid #d0d0d0;
@@ -27,18 +25,15 @@
       font-size: 1rem;
       line-height: 1.5;
     }
-
     .citation-text {
       text-align: left;
     }
-
     .nav-buttons {
       display: flex;
       gap: 0.5em;
       margin-top: 0.75em;
       justify-content: center;
     }
-
     .nav-buttons button {
       background-color: #e0e0e0;
       border: none;
@@ -47,7 +42,6 @@
       cursor: pointer;
       font-size: 1em;
     }
-
     .nav-buttons button:hover {
       background-color: #d0d0d0;
     }
@@ -55,35 +49,39 @@
 </head>
 <body>
   <h2>Citation du jour</h2>
-
   <div class="callout">
     <div class="citation-text" id="citation">Chargement...</div>
   </div>
-
   <div class="nav-buttons">
     <button onclick="changeDay(-1)">⏪</button>
     <button onclick="resetToday()">📅</button>
     <button onclick="changeDay(1)">⏩</button>
   </div>
-
   <script>
     const citations = [
-      "La discipline est le pont entre les objectifs et leur réalisation. – Jim Rohn",
-      "Tu n’as pas besoin de motivation, tu as besoin d’habitude.",
-      "La productivité, c’est faire les bonnes choses, pas seulement les faire rapidement.",
-      "Commence avant d’être prête.",
-      "Chaque jour compte. Fais-en quelque chose.",
-      "C’est dans la répétition que naît la maîtrise.",
-      "Fais ce que tu as dit que tu ferais, même quand tu n’as plus envie de le faire.",
-      "Le succès appartient à celles qui persévèrent quand personne ne regarde.",
-      "Moins de distractions. Plus d’action.",
-      "Construis la version de toi que tu admires, une action à la fois."
+      "Cultive la discipline chaque jour, sans exception.",
+      "Renforce la productivité même quand tu n’en as pas envie.",
+      "Incarne le focus comme si c’était vital.",
+      "Choisis les habitudes avant tout le reste.",
+      "Pratique l’action même en silence.",
+      "Développe la détermination dans les petits gestes.",
+      "Maîtrise le succès jusqu’à ce que ça devienne naturel.",
+      "Protège ton temps avec engagement, pas juste motivation.",
+      "Nourris le progrès parce que tu le vaux.",
+      "Embrasse la persévérance comme un acte d’amour envers toi-même.",
+      "Cultive la discipline chaque jour, sans exception.",
+      "Renforce la productivité même quand tu n’en as pas envie.",
+      "Incarne le focus comme si c’était vital.",
+      ...
     ];
 
     let baseDate = new Date();
 
     function updateCitation(date) {
-      const index = date.getDate() % citations.length;
+      const start = new Date(date.getFullYear(), 0, 0);
+      const diff = (date - start) + ((start.getTimezoneOffset() - date.getTimezoneOffset()) * 60 * 1000);
+      const day = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const index = day % citations.length;
       document.getElementById("citation").innerText = citations[index];
     }
 
