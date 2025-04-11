@@ -26,25 +26,10 @@
       border-radius: 4px;
       font-size: 1rem;
       line-height: 1.5;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
     }
 
     .citation-text {
-      flex: 1;
       text-align: left;
-    }
-
-    .save-btn {
-      position: absolute;
-      top: 0.5em;
-      right: 0.8em;
-      background-color: transparent;
-      border: none;
-      font-size: 1.1em;
-      cursor: pointer;
     }
 
     .nav-buttons {
@@ -66,24 +51,6 @@
     .nav-buttons button:hover {
       background-color: #d0d0d0;
     }
-
-    .toast {
-      position: fixed;
-      bottom: 1em;
-      left: 50%;
-      transform: translateX(-50%);
-      background-color: #444;
-      color: #fff;
-      padding: 0.6em 1em;
-      border-radius: 4px;
-      font-size: 0.9em;
-      opacity: 0;
-      transition: opacity 0.3s ease;
-    }
-
-    .toast.show {
-      opacity: 1;
-    }
   </style>
 </head>
 <body>
@@ -91,7 +58,6 @@
 
   <div class="callout">
     <div class="citation-text" id="citation">Chargement...</div>
-    <button class="save-btn" onclick="saveCitation()" title="Enregistrer la citation">💾</button>
   </div>
 
   <div class="nav-buttons">
@@ -99,8 +65,6 @@
     <button onclick="resetToday()">📅</button>
     <button onclick="changeDay(1)">⏩</button>
   </div>
-
-  <div id="toast" class="toast">Citation copiée !</div>
 
   <script>
     const citations = [
@@ -131,15 +95,6 @@
     function resetToday() {
       baseDate = new Date();
       updateCitation(baseDate);
-    }
-
-    function saveCitation() {
-      const text = document.getElementById("citation").innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const toast = document.getElementById("toast");
-        toast.classList.add("show");
-        setTimeout(() => toast.classList.remove("show"), 2000);
-      });
     }
 
     updateCitation(baseDate);
